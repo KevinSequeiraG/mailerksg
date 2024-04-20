@@ -1,4 +1,5 @@
 import mysql.connector
+import os
 
 import click
 from flask import current_app, g
@@ -7,12 +8,15 @@ from .schema import instructions
 
 def getDB():
     if 'db' not in g:
-        g.db = mysql.connector.connect(
-            host = current_app.config['DATABASE_HOST'],
-            user = current_app.config['DATABASE_USER'],
-            password = current_app.config['DATABASE_PASSWORD'],
-            database = current_app.config['DATABASE'],
-        )
+        url = os.getenv('JAWSDB_URL')
+        config = {
+          'user': url.username,
+          'password': url.password,
+          'host': url.hostname,
+          'port': url.port,
+          'database': url.path[1:],  # quita el slash inicial
+        }
+        g.db = mysql.connector.connect(**config)
         g.c = g.db.cursor(dictionary=True)
     return g.db, g.c
 
