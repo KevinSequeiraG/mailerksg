@@ -6,18 +6,29 @@ from flask import current_app, g
 from flask.cli import with_appcontext
 from .schema import instructions
 
+from flask import g
+import mysql.connector
+import os
+from urllib.parse import urlparse
+
 def getDB():
     if 'db' not in g:
-        url = os.getenv('JAWSDB_URL')
+        # Obtiene la URL de conexión de la variable de entorno
+        url = urlparse(os.getenv('JAWSDB_URL'))
+        
+        # Parsea los componentes de la URL
         config = {
-          'user': url.username,
-          'password': url.password,
-          'host': url.hostname,
-          'port': url.port,
-          'database': url.path[1:],  # quita el slash inicial
+            'user': url.username,
+            'password': url.password,
+            'host': url.hostname,
+            'port': url.port or 3306,  # Usa el puerto por defecto de MySQL si no está especificado
+            'database': url.path[1:],  # Elimina el primer carácter '/' del path
         }
+        
+        # Establece la conexión
         g.db = mysql.connector.connect(**config)
         g.c = g.db.cursor(dictionary=True)
+        
     return g.db, g.c
 
 def closeDB(e=None):
