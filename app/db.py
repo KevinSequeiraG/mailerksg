@@ -5,13 +5,18 @@ from flask import current_app, g
 from flask.cli import with_appcontext
 from .schema import instructions
 
+import os
+from urllib.parse import urlparse
+
 def getDB():
     if 'db' not in g:
+        url = urlparse(os.environ['JAWSDB_URL'])
         g.db = mysql.connector.connect(
-            host = current_app.config['DATABASE_HOST'],
-            user = current_app.config['DATABASE_USER'],
-            password = current_app.config['DATABASE_PASSWORD'],
-            database = current_app.config['DATABASE'],
+            host=url.hostname,
+            user=url.username,
+            password=url.password,
+            database=url.path[1:],  # El nombre de la base de datos está después del primer '/'
+            port=url.port
         )
         g.c = g.db.cursor(dictionary=True)
     return g.db, g.c
