@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block action %}
+<a class="btn" href="{{ url_for('mail.index') }}">Volver</a>
+{% endblock %}
+
+{% block header %}
+<h1>{% block title %}Enviar correo{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<form method="POST">
+    <div class="formGroup">
+        <label for="email">Correo</label>
+        <input name="email" type="text" id="email" />
+    </div>
+    <div class="formGroup">
+        <label for="subject">Asunto</label>
+        <input name="subject" type="text" id="subject" />
+    </div>
+    <div class="formGroup">
+        <label for="content">Contenido</label>
+        <textarea name="content" id="content"></textarea>
+    </div>
+    <div class="formGroup">
+        <button class="btn">Enviar</button>
+    </div>
+
+</form>
+{% endblock %}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} - MailerKSG</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <nav>
+        Mailer<b>KSG</b>
+    </nav>
+    <section class="content">
+        <div class="top-bar">
+            <form method="GET">
+                <input name="search" value="Search" type="text" , placeholder="Quieres buscar algo?" />
+            </form>
+            {% block action %} {% endblock %}
+        </div>
+        <header>
+            {% block header %} {% endblock %}
+        </header>
+        {% for message in get_flashed_messages() %}
+        <div class="flash">
+            {{message}}
+        </div>
+        {% endfor %}
+        {% block content %} {% endblock %}
+    </section>
+</body>
+
+</html>
