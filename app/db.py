@@ -1,6 +1,3 @@
-import mysql.connector
-import os
-
 import click
 from flask import current_app, g
 from flask.cli import with_appcontext
@@ -15,20 +12,20 @@ def getDB():
     if 'db' not in g:
         # Obtiene la URL de conexión de la variable de entorno
         url = urlparse(os.getenv('JAWSDB_URL'))
-        
-        # Parsea los componentes de la URL
+
+        # Parsea los componentes de la URL y asegúrate de que son strings
         config = {
-            'user': url.username,
-            'password': url.password,
-            'host': url.hostname,
+            'user': str(url.username),
+            'password': str(url.password),
+            'host': str(url.hostname),
             'port': url.port or 3306,  # Usa el puerto por defecto de MySQL si no está especificado
-            'database': url.path[1:],  # Elimina el primer carácter '/' del path
+            'database': str(url.path[1:]),  # Elimina el primer carácter '/' del path y asegúrate de que es string
         }
-        
+
         # Establece la conexión
         g.db = mysql.connector.connect(**config)
         g.c = g.db.cursor(dictionary=True)
-        
+
     return g.db, g.c
 
 def closeDB(e=None):
