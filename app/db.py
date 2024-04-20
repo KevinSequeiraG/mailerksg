@@ -10,13 +10,23 @@ from urllib.parse import urlparse
 
 def getDB():
     if 'db' not in g:
-        url = urlparse(os.environ['JAWSDB_URL'])
+        if 'JAWSDB_URL' in os.environ:
+            url = urlparse(os.environ['JAWSDB_URL'])
+            host = url.hostname
+            user = url.username
+            password = url.password
+            db = url.path[1:]  # El nombre de la base de datos está después del primer '/'
+        else:
+            host = os.environ.get('FLASK_DATABASE_HOST')
+            user = os.environ.get('FLASK_DATABASE_USER')
+            password = os.environ.get('FLASK_DATABASE_PASSWORD')
+            db = os.environ.get('FLASK_DATABASE')
+
         g.db = mysql.connector.connect(
-            host=url.hostname,
-            user=url.username,
-            password=url.password,
-            database=url.path[1:],  # El nombre de la base de datos está después del primer '/'
-            port=url.port
+            host=host,
+            user=user,
+            password=password,
+            database=db
         )
         g.c = g.db.cursor(dictionary=True)
     return g.db, g.c
