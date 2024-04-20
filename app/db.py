@@ -11,15 +11,19 @@ from urllib.parse import urlparse
 def getDB():
     if 'db' not in g:
         # Obtiene la URL de conexión de la variable de entorno
-        url = urlparse(os.getenv('JAWSDB_URL'))
+        db_url = os.getenv('JAWSDB_URL')
+        if db_url is None:
+            raise Exception("Database URL not found")
 
-        # Parsea los componentes de la URL y asegúrate de que son strings
+        url = urlparse(db_url)
+
+        # Parsea los componentes de la URL
         config = {
-            'user': str(url.username),
-            'password': str(url.password),
-            'host': str(url.hostname),
-            'port': url.port or 3306,  # Usa el puerto por defecto de MySQL si no está especificado
-            'database': str(url.path[1:]),  # Elimina el primer carácter '/' del path y asegúrate de que es string
+            'user': url.username,
+            'password': url.password,
+            'host': url.hostname,
+            'port': url.port or 3306,
+            'database': url.path.lstrip('/'),
         }
 
         # Establece la conexión
