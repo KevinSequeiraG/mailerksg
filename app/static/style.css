@@ -9,17 +9,13 @@ nav {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100px;
+    width: 100%;
     height: 100%;
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-top: 30px;
+    padding: 30px;
 }
 
 .content {
-    margin-left: 180px;
-    margin-top: 30px;
-    margin-right: 20px;
+    margin: 30px 20px 0 180px;
 }
 
 .top-bar {
@@ -28,29 +24,15 @@ nav {
     justify-content: space-between;
 }
 
-form input {
-    font-family: 'Raleway', sans-serif;
-    border: 0px;
-    height: 30px;
-    padding: 5px 15px;
-    border-radius: 30px;
-    box-shadow: 0px 1px 5px #dddddd;
-    outline: none;
-    width: 450px;
-    display: block;
-}
-
-form textarea {
+form input, form textarea {
     font-family: 'Raleway', sans-serif;
     border: 0;
-    height: 250px;
     padding: 10px 15px;
     border-radius: 30px;
     box-shadow: 0px 1px 5px #dddddd;
-    resize: none;
-    width: 450px;
-    display: block;
     outline: none;
+    display: block;
+    width: 100%;
 }
 
 ul {
@@ -69,7 +51,6 @@ ul {
 
 .mailContent {
     margin: 5px 0 0 0;
-    columns: #aaa;
 }
 
 .email {
@@ -115,4 +96,40 @@ hr {
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, 0.1);
     margin: 10px 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    nav {
+        width: 80px;
+        padding: 20px;
+    }
+
+    .content {
+        margin: 30px 10px 0 100px;
+    }
+
+    form input, form textarea {
+        width: auto; /* Allow resizing */
+    }
+}
+
+@media (max-width: 480px) {
+    nav {
+        position: static;
+        width: 100%;
+        height: auto;
+    }
+
+    .content {
+        margin: 10px;
+    }
+
+    form input, form textarea {
+        width: 100%; /* Full width on smaller screens */
+    }
+
+    .top-bar {
+        flex-direction: column;
+    }
 }
