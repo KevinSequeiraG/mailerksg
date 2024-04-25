@@ -4,18 +4,18 @@
 {% endblock %}
 
 {% block action %}
-    <a class="btn" href="{{ url_for('mail.create') }}">Nuevo correo</a>
+    <a class="text-[14px] bg-[#674dd4] text-[#fff] self-center px-[15px] py-[10px] rounded-[30px] no-underline border-0 hover:bg-[#8170c5] transition duration-300 ease-in-out" href="{{ url_for('mail.create') }}">Nuevo correo</a>
 {% endblock %}
 
 {% block content %}
 <ul>
     {% for mail in mails %}
-    <li class="mail">
+    <li class="bg-white list-none m-0 mb-[15px] px-[15px] py-[10px] shadow-mail rounded-[5px]">
         <div>
-            <span class="email">{{mail['email']}}</span>
+            <span class="text-[#674dd4]">{{mail['email']}}</span>
             <span class="subject">{{mail['subject']}}</span>
             <hr/>
-            <p class="mailContent">{{mail['content']}}</p>
+            <p class="text-[#aaa] mt-[5px]">{{mail['content']}}</p>
         </div>
     </li>
     {% endfor %}

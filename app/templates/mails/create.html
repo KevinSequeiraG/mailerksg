@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block action %}
-<a class="btn" href="{{ url_for('mail.index') }}">Volver</a>
+<a class="text-[14px] bg-[#674dd4] text-[#fff] self-center px-[15px] py-[10px] rounded-[30px] no-underline border-0 hover:bg-[#8170c5] transition duration-300 ease-in-out" href="{{ url_for('mail.index') }}">Volver</a>
 {% endblock %}
 
 {% block header %}
@@ -9,20 +9,20 @@
 
 {% block content %}
 <form method="POST">
-    <div class="formGroup">
+    <div class="mb-[15px]">
         <label for="email">Correo</label>
-        <input name="email" type="text" id="email" />
+        <input class="text-[.8rem] py-3 font-raleway border border-0 px-[15px] py-[5px] rounded-[30px] shadow-searchbar outline-0 w-full mdx900:w-[450px] block" name="email" type="text" id="email" />
     </div>
-    <div class="formGroup">
+    <div class="mb-[15px]">
         <label for="subject">Asunto</label>
-        <input name="subject" type="text" id="subject" />
+        <input class="text-[.8rem] py-3 font-raleway border border-0 px-[15px] py-[5px] rounded-[30px] shadow-searchbar outline-0 w-full mdx900:w-[450px] block" name="subject" type="text" id="subject" />
     </div>
-    <div class="formGroup">
+    <div class="mb-[15px]">
         <label for="content">Contenido</label>
-        <textarea name="content" id="content"></textarea>
+        <textarea class="text-[.8rem] py-3 font-raleway border border-0 px-[15px] py-[5px] rounded-[30px] shadow-searchbar outline-0 w-full mdx900:w-[450px] block h-[250px] resize-none" name="content" id="content"></textarea>
     </div>
-    <div class="formGroup">
-        <button class="btn">Enviar</button>
+    <div class="mb-[15px]">
+        <button class="text-[14px] bg-[#674dd4] text-[#fff] self-center px-[15px] py-[10px] rounded-[30px] no-underline border-0 hover:bg-[#8170c5] transition duration-300 ease-in-out">Enviar</button>
     </div>
 
 </form>

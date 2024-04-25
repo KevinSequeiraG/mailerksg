@@ -23,4 +23,7 @@ def create_app():
     
     app.register_blueprint(mail.bp)
     
+    # Forzar el modo de depuración
+    app.debug = True
+    
     return app
